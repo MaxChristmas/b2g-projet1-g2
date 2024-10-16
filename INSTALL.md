@@ -14,11 +14,11 @@ Télécharger et installer [Ubuntu 24.04 LTS](https://releases.ubuntu.com/24.04.
     * Utilisateur ID : ```wilder``` (groupe sudo)
     * Utilisateur Pass : ```Azerty1*```
 
-Paramétrer virtualbox sur mode le mode "Accès par pont"
+Paramétrer virtualbox sur mode le mode "Accès par pont" ou "Réseau interne"
 
     1- Aller dans les paramètres de la machine virtuelle Debian.
     2- Sélectionner l'onglet "Réseau".
-    3- Choisir "Accès par pont" pour l'adaptateur réseau.
+    3- Choisir "Accès par pont" ou "Réseau interne" pour l'adaptateur réseau.
     5- Répéter les étapes 1 à 3 pour la machine virtuelle Ubuntu.
 
 Installer openssh
