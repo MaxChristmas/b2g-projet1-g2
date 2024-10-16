@@ -19,7 +19,7 @@ Paramétrer virtualbox sur mode le mode "Accès par pont" ou "Réseau interne"
     1- Aller dans les paramètres de la machine virtuelle Debian.
     2- Sélectionner l'onglet "Réseau".
     3- Choisir "Accès par pont" ou "Réseau interne" pour l'adaptateur réseau.
-    5- Répéter les étapes 1 à 3 pour la machine virtuelle Ubuntu.
+    4- Répéter les étapes 1 à 3 pour la machine virtuelle Ubuntu.
 
 Installer openssh
 
