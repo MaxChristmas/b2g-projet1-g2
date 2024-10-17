@@ -49,7 +49,7 @@ rebootRemoteDevice() {
 
 # Retrieve distance device's disk state
 getDiskUsage() {
-	DISKUSAGE="df -h | grep 'sda' | awk '{print \"Disque: \" \$1 \" Espace Disponible : \" \$4 \"-\" \$5}'"
+	DISKUSAGE="df -h | grep 'sda' | awk '{print \$1 \" Espace Disponible: \" \$4 \"-\" \$5}'"
 	REMOTE_DISK=$(remoteCommand "$DISKUSAGE")
 	echo "Utilisation du disque: $REMOTE_DISK"
 }
@@ -76,18 +76,19 @@ shutdownRemoteDevice() {
 #Menu's choices listing
 menu1_opt1="Création d'un compte utilisateur"
 menu1_opt2="Suppression d'un compte utilisateur"
-menu1_opt3="Ajout d'un utilisateur dans un groupe"
-menu1_opt4="Dernière connexion de l'utilisateur"
-menu1_opt5="Nom de la machine"
-menu1_opt6="Nom et Version de l'OS"
-menu1_opt7="Etat du disque"
-menu1_opt8="Redémarrer"
-menu1_opt9="Arrêter"
-menu1_opt10="Quitter"
+menu1_opt3="Création d'un groupe"
+menu1_opt4="Ajout d'un utilisateur dans un groupe"
+menu1_opt5="Dernière connexion de l'utilisateur"
+menu1_opt6="Nom de la machine"
+menu1_opt7="Nom et Version de l'OS"
+menu1_opt8="Etat du disque"
+menu1_opt9="Redémarrer"
+menu1_opt10="Arrêter"
+menu1_opt11="Quitter"
 
 # Select and options prompt
 PS3="Sélectionner votre choix: "
-options=("$menu1_opt1" "$menu1_opt2" "$menu1_opt3" "$menu1_opt4" "$menu1_opt5" "$menu1_opt6" "$menu1_opt7" "$menu1_opt8" "$menu1_opt9" "$menu1_opt10")
+options=("$menu1_opt1" "$menu1_opt2" "$menu1_opt3" "$menu1_opt4" "$menu1_opt5" "$menu1_opt6" "$menu1_opt7" "$menu1_opt8" "$menu1_opt9" "$menu1_opt10" "$menu1_opt11")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -101,24 +102,27 @@ do
 			
 			;;
 		$menu1_opt4)
-			getUserLastConnection
+			
 			;;
 		$menu1_opt5)
-			getHostName
+			getUserLastConnection
 			;;
 		$menu1_opt6)
-			getHostInfo
+			getHostName
 			;;
 		$menu1_opt7)
-			getDiskUsage
+			getHostInfo
 			;;
 		$menu1_opt8)
-			rebootRemoteDevice
+			getDiskUsage
 			;;
 		$menu1_opt9)
-			shutdownRemoteDevice
+			rebootRemoteDevice
 			;;
 		$menu1_opt10)
+			shutdownRemoteDevice
+			;;
+		$menu1_opt11)
 			break
 			;;
 		*) echo "Invalid option $REPLY";;
