@@ -50,6 +50,7 @@ createUserAccount(){
 	REMOTE_ADD_USER=$(remote_command "sudo -s passwd $login_user")
 }
 
+# Suppression d'utilisateur
 deleteUserAccount() {
 	read -p "Indiquer le nom d'utilisateur à supprimer: " user_deleted	
 	DEL_USER=$(remote_command "sudo userdel $user_deleted")
