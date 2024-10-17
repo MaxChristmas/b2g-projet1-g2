@@ -43,10 +43,17 @@ getDiskUsage() {
 	echo "Utilisation du disque: $REMOTE_DISK"
 }
 
+# Ajout d'un utilisateur
 createUserAccount(){
 	read -p "Entrer le nom de l'utilisateur : " login_user	
 	REMOTE_ADD_USER=$(remote_command "sudo -s useradd $login_user -m")
 	REMOTE_ADD_USER=$(remote_command "sudo -s passwd $login_user")
+}
+
+# Arrêt de la machine distante
+shutdownRemote() {
+	REMOTE_SHUTDOWN=$(remote_command "sudo shutdown now")
+	echo "Arrêt de la machine distante"
 }
 
 menu1_opt1="Création d'un compte utilisateur"
@@ -91,7 +98,7 @@ do
 			rebootRemote
 			;;
 		$menu1_opt9)
-		
+			shutdownRemote
 			;;
 		$menu1_opt10)
 			break
