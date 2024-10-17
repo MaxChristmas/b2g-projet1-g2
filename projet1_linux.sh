@@ -5,7 +5,7 @@ USER="wilder"
 HOST="172.16.10.30"
 PORT="22"
 
-# Exécuter une commande sur la machine distante
+# Execute command on distant device
 remote_command() {
     local COMMAND=$1
     ssh -p $PORT $USER@$HOST "$COMMAND"
