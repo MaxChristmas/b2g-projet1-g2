@@ -43,8 +43,14 @@ getDiskUsage() {
 	echo "Utilisation du disque: $REMOTE_DISK"
 }
 
-menu1_opt1="Création de compte"
-menu1_opt2="Suppression de compte"
+createUserAccount(){
+	read -p "Entrer le nom de l'utilisateur : " login_user	
+	REMOTE_ADD_USER=$(remote_command "sudo -s useradd $login_user -m")
+	REMOTE_ADD_USER=$(remote_command "sudo -s passwd $login_user")
+}
+
+menu1_opt1="Création d'un compte utilisateur"
+menu1_opt2="Suppression d'un compte utilisateur"
 menu1_opt3="Ajout d'un utilisateur dans un groupe"
 menu1_opt4="Dernière connexion de l'utilisateur"
 menu1_opt5="Nom de la machine"
@@ -61,7 +67,7 @@ select opt in "${options[@]}"
 do
     case $opt in
 		$menu1_opt1)
-			
+			createUserAccount
 			;;
 		$menu1_opt2)
 			
