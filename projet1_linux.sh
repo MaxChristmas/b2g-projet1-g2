@@ -65,7 +65,7 @@ createUserAccount(){
 	read -p "Entrer le nom de l'utilisateur : " login_user	
 	REMOTE_ADD_USER=$(remoteCommand "sudo -s useradd $login_user -m")
 	REMOTE_ADD_USER=$(remoteCommand "sudo -s passwd $login_user")
-	echo -e "${YELLOW}L'utilisateur${NC} ${RED}$ogin_user${NC} ${YELLOW}a été ajoutté${NC}"
+	echo -e "${YELLOW}L'utilisateur${NC} ${RED}$login_user${NC} ${YELLOW}a été ajoutté${NC}"
 }
 
 # Delete a user
