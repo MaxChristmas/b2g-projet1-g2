@@ -1,9 +1,20 @@
 #!/bin/bash
 
-# Variables
-USER="wilder"
-HOST="172.16.10.30"
+DEBUG=1
 PORT="22"
+
+if [ $DEBUG -eq 1 ]; then
+	USER="wilder"
+	HOST="172.16.10.30"
+else
+	while true; do
+		read -p "Entrer une adress IP (172.16.10.30): " HOST
+		read -p "Entrer un nom d'utilisateur (wilder): " USER
+		if [[ $HOST == "172.16.10.30" ]] && [[ $USER == "wilder" ]]; then
+		    break
+		fi
+	done
+fi
 
 # Execute defined command on distant device
 remoteCommand() {
