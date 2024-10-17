@@ -62,7 +62,7 @@ shutdownRemoteDevice() {
 	echo "Arrêt de la machine distante"
 }
 
-#
+#Menu's choices listing
 menu1_opt1="Création d'un compte utilisateur"
 menu1_opt2="Suppression d'un compte utilisateur"
 menu1_opt3="Ajout d'un utilisateur dans un groupe"
