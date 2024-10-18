@@ -86,8 +86,9 @@ shutdownRemoteDevice() {
 
 # Add group
 addGroup() {
-	REMOTE_SHUTDOWN=$(remoteCommand "sudo shutdown now")
-	echo -e "${YELLOW}Arrêt de la machine distante${NC}"
+	read -p "Entrer le nom du groupe à créer: " newgroup	
+	REMOTE_SHUTDOWN=$(remoteCommand "sudo groupadd $newgroup")
+	echo -e "${YELLOW}Le groupe${NC} ${RED}$newgroup${NC} ${YELLOW}a été ajouté${NC}" 
 }
 
 
@@ -128,7 +129,7 @@ do
 			deleteUserAccount
 			;;
 		$menu1_opt3)
-			
+			addGroup
 			;;
 		$menu1_opt4)
 			
