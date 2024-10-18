@@ -107,6 +107,9 @@ quit() {
 }
 
 #Menu's choices listing
+echo -e "${BLUE}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
+echo -e "${BLUE}    Choisir une action ou afficher des informations${NC}"
+echo -e "${BLUE}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
 menu1_opt1="Création d'un compte utilisateur"
 menu1_opt2="Suppression d'un compte utilisateur"
 menu1_opt3="Création d'un groupe"
@@ -118,10 +121,6 @@ menu1_opt8="Etat du disque"
 menu1_opt9="Redémarrer"
 menu1_opt10="Arrêter"
 menu1_opt11="Quitter"
-
-echo -e "${BLUE}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
-echo -e "${BLUE}    Choisir une action ou afficher des informations${NC}"
-echo -e "${BLUE}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
 
 # Select and options prompt
 PS3="Sélectionner votre choix: "
