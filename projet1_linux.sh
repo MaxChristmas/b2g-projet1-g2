@@ -47,6 +47,12 @@ remoteCommand() {
     exit
 }
 
+# write logs
+log() {
+	line="$(date +%Y%d%m-%H:%M:%S) $1 - $2"
+	echo $line >> /var/log/log_evt.log	
+}
+
 # Add a user
 createUserAccount(){
 	read -p "Entrer le nom de l'utilisateur : " login_user	
@@ -130,12 +136,6 @@ quit() {
 	echo -e "${BLUE}    Bye!\n    Au plaisir de vous revoir!${NC}"
 	echo -e "${BLUE}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
 	log $USER "********EndScript********"	
-}
-
-# write logs
-log() {
-	line="$(date +%Y%d%m-%H:%M:%S) $1 - $2"
-	echo $line >> /var/log/log_evt.log	
 }
 
 log $USER "********StartScript********"
