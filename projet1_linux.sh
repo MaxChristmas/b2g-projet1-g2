@@ -74,7 +74,7 @@ createUserAccount(){
 # Delete a user
 deleteUserAccount() {
 	read -p "Indiquer le nom d'utilisateur à supprimer: " user_deleted	
-	DEL_USER=$(remoteCommand "sudo userdel $user_deleted")
+	DEL_USER=$(remoteCommand "sudo userdel -r $user_deleted")
 	echo -e "${YELLOW}L'utilisateur${NC} ${RED}$user_deleted${NC} ${YELLOW}a été supprimé${NC}"
 }
 
@@ -83,6 +83,13 @@ shutdownRemoteDevice() {
 	REMOTE_SHUTDOWN=$(remoteCommand "sudo shutdown now")
 	echo -e "${YELLOW}Arrêt de la machine distante${NC}"
 }
+
+# Add group
+addGroup() {
+	REMOTE_SHUTDOWN=$(remoteCommand "sudo shutdown now")
+	echo -e "${YELLOW}Arrêt de la machine distante${NC}"
+}
+
 
 # Exit command menu
 quit() {
@@ -110,7 +117,7 @@ echo -e "${BLUE}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
 
 # Select and options prompt
 PS3="Sélectionner votre choix: "
-options=("$menu1_opt1" "$menu1_opt2$" "$menu1_opt3" "$menu1_opt4" "$menu1_opt5" "$menu1_opt6" "$menu1_opt7" "$menu1_opt8" "$menu1_opt9" "$menu1_opt10" "$menu1_opt11")
+options=("$menu1_opt1" "$menu1_opt2" "$menu1_opt3" "$menu1_opt4" "$menu1_opt5" "$menu1_opt6" "$menu1_opt7" "$menu1_opt8" "$menu1_opt9" "$menu1_opt10" "$menu1_opt11")
 select opt in "${options[@]}"
 do
     case $opt in
