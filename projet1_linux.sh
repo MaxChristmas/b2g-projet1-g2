@@ -90,7 +90,14 @@ addGroup() {
 	REMOTE_SHUTDOWN=$(remoteCommand "sudo groupadd $newgroup")
 	echo -e "${YELLOW}Le groupe${NC} ${RED}$newgroup${NC} ${YELLOW}a été ajouté${NC}" 
 }
-
+ 
+# Add user in group
+addUserInGroup() {
+    read -p "Entrer le nom de l'utilisateur : " userg
+    read -p "Entrer le nom du groupe : " group
+    REMOTE_SHUTDOWN=$(remoteCommand "sudo usermod -aG $group $userg")
+    echo -e "${YELLOW}L'utilisateur${NC} ${RED}$userg${NC} ${YELLOW}a été ajouté dans${NC} ${RED}$group${NC}"
+}
 
 # Exit command menu
 quit() {
@@ -132,7 +139,7 @@ do
 			addGroup
 			;;
 		$menu1_opt4)
-			
+			addUserInGroup
 			;;
 		$menu1_opt5)
 			getUserLastConnection
