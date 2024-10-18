@@ -5,8 +5,11 @@ DEBUG=1
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-NC='\033[0m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
 
 
 if [ $DEBUG -eq 1 ]; then
@@ -83,7 +86,9 @@ shutdownRemoteDevice() {
 
 # Exit command menu
 quit() {
-	echo -e "${YELLOW}Bye!\nAu plaisir de vous revoir!${NC}"
+	echo -e "${BLUE}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
+	echo -e "${BLUE}    Bye!\n    Au plaisir de vous revoir!${NC}"
+	echo -e "${BLUE}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
 }
 
 #Menu's choices listing
@@ -99,13 +104,13 @@ menu1_opt9="Redémarrer"
 menu1_opt10="Arrêter"
 menu1_opt11="Quitter"
 
-echo -e "${GREEN}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
-echo -e "${GREEN}+++ Choisir une action ou afficher des informations +++${NC}"
-echo -e "${GREEN}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
+echo -e "${BLUE}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
+echo -e "${BLUE}    Choisir une action ou afficher des informations${NC}"
+echo -e "${BLUE}+++++++++++++++++++++++++++++++++++++++++++++++++++++++${NC}"
 
 # Select and options prompt
 PS3="Sélectionner votre choix: "
-options=("$menu1_opt1" "$menu1_opt2" "$menu1_opt3" "$menu1_opt4" "$menu1_opt5" "$menu1_opt6" "$menu1_opt7" "$menu1_opt8" "$menu1_opt9" "$menu1_opt10" "$menu1_opt11")
+options=("$menu1_opt1" "$menu1_opt2$" "$menu1_opt3" "$menu1_opt4" "$menu1_opt5" "$menu1_opt6" "$menu1_opt7" "$menu1_opt8" "$menu1_opt9" "$menu1_opt10" "$menu1_opt11")
 select opt in "${options[@]}"
 do
     case $opt in
