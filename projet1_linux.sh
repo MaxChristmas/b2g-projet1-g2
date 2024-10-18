@@ -50,7 +50,12 @@ remoteCommand() {
 # write logs
 log() {
 	line="$(date +%Y%d%m-%H:%M:%S) $1 - $2"
-	echo $line >> /var/log/log_evt.log	
+	sudo echo $line >> /var/log/log_evt.log	
+}
+
+writeTxt() {
+	dir="/home/$(whoami)/Documents/info_"$USER"_$(date +%Y%d%m).txt"
+	echo $1 >> $dir
 }
 
 # Add a user
@@ -59,7 +64,7 @@ createUserAccount(){
 	REMOTE_ADD_USER=$(remoteCommand "sudo -s useradd $login_user -m")
 	REMOTE_ADD_USER=$(remoteCommand "sudo -s passwd $login_user")
 	echo -e "${YELLOW}L'utilisateur${NC} ${RED}$login_user${NC} ${YELLOW}a été ajoutté${NC}"
-	log $USER "$menu1_opt1 : L'utilisateur $login_user été ajoutté"
+	log $USER "$menu1_opt1"
 }
 
 # Delete a user
@@ -67,7 +72,7 @@ deleteUserAccount() {
 	read -p "Indiquer le nom d'utilisateur à supprimer: " user_deleted	
 	DEL_USER=$(remoteCommand "sudo userdel -r $user_deleted")
 	echo -e "${YELLOW}L'utilisateur${NC} ${RED}$user_deleted${NC} ${YELLOW}a été supprimé${NC}"
-	log $USER "$menu1_opt2 : L'utilisateur $user_deleted a été supprimé"
+	log $USER "$menu1_opt2"
 }
 
 # Add group
@@ -75,7 +80,7 @@ addGroup() {
 	read -p "Entrer le nom du groupe à créer: " newgroup	
 	REMOTE_SHUTDOWN=$(remoteCommand "sudo groupadd $newgroup")
 	echo -e "${YELLOW}Le groupe${NC} ${RED}$newgroup${NC} ${YELLOW}a été ajouté${NC}"
-	log $USER "$menu1_opt3 : Le groupe $newgroup a été ajouté"
+	log $USER "$menu1_opt3"
 }
  
 # Add user in group
@@ -84,28 +89,31 @@ addUserInGroup() {
     read -p "Entrer le nom du groupe : " group
     REMOTE_SHUTDOWN=$(remoteCommand "sudo usermod -aG $group $userg")
     echo -e "${YELLOW}L'utilisateur${NC} ${RED}$userg${NC} ${YELLOW}a été ajouté dans${NC} ${RED}$group${NC}"
-    log $USER "$menu1_opt4 : L'utilisateur $userg a été ajouté dans $group"
+    log $USER "$menu1_opt4"
 }
 
 # Get the user last connection date
 getUserLastConnection() {    
     REMOTE_DERNIERE_CO=$(remoteCommand "last $USER | head -n 1 | awk '{print \$1 \": depuis \" \$3 \" le \" \$4 \" \" \$5 \" \" \$6 \" \" \$7 \" \" \$8 \" \" \$9 \" \" \$10}'")
     echo -e "${YELLOW}Dernière connexion de${NC} ${RED}$REMOTE_DERNIERE_CO${NC}"
-    log $USER "$menu1_opt5 : $REMOTE_DERNIERE_CO"
+    log $USER "$menu1_opt5"
+    writeTxt "Dernière connexion de $REMOTE_DERNIERE_CO"
 }
 
 # Get the distant host name
 getHostName() {
 	REMOTE_NAME=$(remoteCommand "uname -n")
 	echo -e "${YELLOW}Nom de machine distante:${NC} ${RED}$REMOTE_NAME${NC}"
-	log $USER "$menu1_opt6 : $REMOTE_NAME"
+	log $USER "$menu1_opt6"
+	writeTxt "Nom de machine distante: $REMOTE_NAME"
 }
 
 # Get the OS name and version
 getHostInfo() {
 	REMOTE_UNAME=$(remoteCommand "uname -sr")
 	echo -e "${YELLOW}Nom de l'OS et version de la machine distante:${NC} ${RED}$REMOTE_UNAME${NC}"
-	log $USER "$menu1_opt7 : $REMOTE_UNAME"
+	log $USER "$menu1_opt7"
+	writeTxt "Nom de l'OS et version de la machine distante: $REMOTE_UNAME"
 }
 
 # Retrieve distance device's disk state
@@ -113,7 +121,8 @@ getDiskUsage() {
 	DISKUSAGE="df -h | grep 'sda' | awk '{print \$1 \" Espace Disponible: \" \$4 \"-\" \$5}'"
 	REMOTE_DISK=$(remoteCommand "$DISKUSAGE")
 	echo -e "${YELLOW}Utilisation du disque:${NC} ${RED}$REMOTE_DISK${NC}"
-	log $USER "$menu1_opt8 $REMOTE_DISK"
+	log $USER "$menu1_opt8"
+	writeTxt "Utilisation du disque: $REMOTE_DISK"
 }
 
 # Restart the distant device
@@ -127,7 +136,7 @@ rebootRemoteDevice() {
 shutdownRemoteDevice() {
 	REMOTE_SHUTDOWN=$(remoteCommand "sudo shutdown now")
 	echo -e "${YELLOW}Arrêt de la machine distante${NC}"
-	log $USER "$menu1_opt10 : Arrêt de la machine"
+	log $USER "$menu1_opt10"
 }
 
 # Exit command menu
