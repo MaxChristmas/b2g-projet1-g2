@@ -58,7 +58,7 @@ function getUserLastConnection {
 }
 
 function getHostName {
-    Write-Host -ForegroundColor Cyan "Le nom de la machine distante est: " -NoNewline    
+    Write-Host -ForegroundColor Cyan "Le nom de la machine distante est: "    
     RemoteCommand -Command "hostname"
 }
 
