@@ -38,11 +38,20 @@ function RemoteCommand {
 }
 
 function createUserAccount {
-    Write-Host $menu1_opt1
+    Write-Host "Entrer le nom du nouvel utilisateur:"
+    $new_username = Read-Host
+    Write-Host "Entrer le mot de passe du nouvel utilisateur:"
+    $password = Read-Host -AsSecureString
+    $password = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($password))
+    RemoteCommand -Command "net user $new_username $password /add /active:yes"
+    RemoteCommand -Command "net user"
 }
 
 function deleteUserAccount {
-    Write-Host $menu1_opt2
+    Write-Host "Entrer le nom d'utilisateur à supprimer:"
+    $del_username = Read-Host
+    RemoteCommand -Command "net user $del_username /delete"
+    RemoteCommand -Command "net user"
 }
 
 function addGroup {
