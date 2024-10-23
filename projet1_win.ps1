@@ -20,8 +20,8 @@ if ($DEBUG) {
     $userhost = $DEFAULT_HOST
 } else {
     while ($true) {
-        $user = Read-Host -Prompt "Entrer un nom d'utilisateur ($DEFAULT_USER)"
-        $userhost = Read-Host -Prompt "Entrer une adress IP ($DEFAULT_HOST)"
+        $user = Read-Host "Entrer un nom d'utilisateur ($DEFAULT_USER)"
+        $userhost = Read-Host "Entrer une adress IP ($DEFAULT_HOST)"
 
         if (($userhost -eq $DEFAULT_HOST) -and ($user -eq $DEFAULT_USER)) {
            break
@@ -55,11 +55,16 @@ function deleteUserAccount {
 }
 
 function addGroup {
-    Write-Host $menu1_opt3
+    $newgroup = Read-Host "Entrer le nom du groupe à créer"
+	RemoteCommand -Command "net localgroup $newgroup /add"
+	RemoteCommand -Command "net localgroup"
 }
 
 function addUserInGroup {
-    Write-Host $menu1_opt4
+    $addingroup = Read-Host "Entrer le nom du groupe"
+    $addinuser = Read-Host "Entrer le nom de l'utilisateur"
+    RemoteCommand -Command "net localgroup $addingroup $addinuser /add"
+    RemoteCommand -Command "net localgroup $addingroup"
 }
 
 function getUserLastConnection {
