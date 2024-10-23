@@ -54,7 +54,7 @@ function addUserInGroup {
 }
 
 function getUserLastConnection {
-    Write-Host $menu1_opt5
+    RemoteCommand -Command "net user $DEFAULT_USER"
 }
 
 function getHostName {
