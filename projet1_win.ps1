@@ -104,17 +104,17 @@ while ($continue) {
     Write-Host -ForegroundColor Blue "+++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     Write-Host -ForegroundColor Blue "    Choisir une action ou afficher des informations"
     Write-Host -ForegroundColor Blue "+++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-    Write-Host $menu1_opt1
-    Write-Host $menu1_opt2
-    Write-Host $menu1_opt3
-    Write-Host $menu1_opt4
-    Write-Host $menu1_opt5
-    Write-Host $menu1_opt6
-    Write-Host $menu1_opt7
-    Write-Host $menu1_opt8
-    Write-Host $menu1_opt9
-    Write-Host $menu1_opt10
-    Write-Host $menu1_opt11
+    Write-Host "    $menu1_opt1"
+    Write-Host "    $menu1_opt2"
+    Write-Host "    $menu1_opt3"
+    Write-Host "    $menu1_opt4"
+    Write-Host "    $menu1_opt5"
+    Write-Host "    $menu1_opt6"
+    Write-Host "    $menu1_opt7"
+    Write-Host "    $menu1_opt8"
+    Write-Host "    $menu1_opt9"
+    Write-Host "    $menu1_opt10"
+    Write-Host "    $menu1_opt11"
     $choix = Read-Host "Faire un choix"
     switch ($choix) {
         1 {
