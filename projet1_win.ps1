@@ -1,7 +1,7 @@
 $PORT = "22"
 $DEBUG = $true
 $DEFAULT_USER = "wilder"
-$DEFAULT_HOST = "172.16.10.30"
+$DEFAULT_HOST = "172.16.10.20"
 
 $menu1_opt1 = "1. Creation d'un compte utilisateur"
 $menu1_opt2 = "2. Suppression d'un compte utilisateur"
@@ -29,6 +29,14 @@ if ($DEBUG) {
     }
 }
 
+function RemoteCommand {
+    param(
+        [string]$Command
+    )
+    $sshCommand = "ssh -t $DEFAULT_USER@$DEFAULT_HOST '$Command'"
+    Invoke-Expression -Command $sshCommand
+}
+
 function createUserAccount {
     Write-Host $menu1_opt1
 }
@@ -50,8 +58,10 @@ function getUserLastConnection {
 }
 
 function getHostName {
-    Write-Host $menu1_opt6
+    Write-Host -ForegroundColor Cyan "Le nom de la machine distante est: " -NoNewline    
+    RemoteCommand -Command "hostname"
 }
+
 
 function getHostInfo {
     Write-Host $menu1_opt7
@@ -62,11 +72,11 @@ function getDiskUsage {
 }
 
 function rebootRemoteDevice {
-    Write-Host $menu1_opt9
+    RemoteCommand -Command "shutdown /r /t 0"
 }
 
 function shutdownRemoteDevice {
-    Write-Host $menu1_opt10
+    RemoteCommand -Command "shutdown /s /t 0"
 }
 
 function quit {
@@ -133,4 +143,3 @@ while ($continue) {
         }
     }
 }
-
