@@ -62,7 +62,6 @@ function getHostName {
     RemoteCommand -Command "hostname"
 }
 
-
 function getHostInfo {
     RemoteCommand -Command  "wmic os get Caption,Version"
 }
