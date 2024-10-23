@@ -64,11 +64,11 @@ function getHostName {
 
 
 function getHostInfo {
-    Write-Host $menu1_opt7
+    RemoteCommand -Command  "wmic os get Caption,Version"
 }
 
 function getDiskUsage {
-    Write-Host $menu1_opt8
+    RemoteCommand -Command "wmic logicaldisk get Name,Description,FreeSpace"
 }
 
 function rebootRemoteDevice {
