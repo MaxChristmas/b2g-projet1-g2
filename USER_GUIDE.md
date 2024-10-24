@@ -4,17 +4,21 @@ Le projet contient deux programmes:
 - Script LINUX : Adapté pour une utilisation d'un serveur Linux vers des clients distants également sous environnement Linux.
 - Script WINDOWS : Adapté pour une utilisation sur un serveur Windows vers des clients cibles également sous exploitation Windows.
 
-L'objectif de ces scripts est de pouvoir administrer des postes distants à partir d'un serveur en exécutant des actions via une connexion SSH. Ils offrent une variété de commandes sous forme d'un menu unique, comprenant une variété de choix concernant la gestion des groupes et des utilisateurs, des informations relative au système client ou permettant des arrêts ou redémarrage dudit système.
-
 Les parties suivantes proposent un guide détaillé de chaque commande pour les deux distributions, respectivement Linux et Windows. 
 
- # **LINUX** 
-Cette partie décrit les fonctionnalités du programme permettant de gérer les utilisateurs et d'administrer un système Linux. Il est divisé en deux sections : **Gestion des utilisateurs** et **Gestion du système**. Vous y trouverez des instructions pour accomplir des tâches courantes de gestion et d'administration proposées par le script.
+ # **Fonctionnalités** 
+Cette partie décrit les fonctionnalités du programme permettant de gérer les utilisateurs et d'administrer un système Linux. Il est divisé en trois sections : **Gestion des utilisateurs** , **Gestion du système** et **Récupération de données**. Vous y trouverez des instructions pour accomplir des tâches courantes de gestion et d'administration proposées par le script.
 
-Pour initialiser le script, tapez la commande suivante 
+Pour initialiser le script sous Linux, tapez la commande suivante :
 ``` 
     bash ./projet1-linux.sh
   ```
+  
+Pour initialiser le script sous Windows, tapez la commande suivante :
+``` 
+    ./projet1-win.ps1
+  ```
+
 A l'initialisation du programme, il vous sera demandé d'entrer : 
 - Le nom de l'utilisateur 
 - L'adresse IP du poste client ciblé  
@@ -37,80 +41,117 @@ Les différentes commandes sont exhaustivement détaillées ci-après.
 
 ### *1.1-Création d'un utilisateur*
 Cette option permet la création d'un utilisateur. Il vous sera demandé : d'entrer son nom puis de de choisir un mot de passe. Si le nom de l'utilisateur n'est pas disponible, un message d'erreur est renvoyé.
-Commande utilisée par le script :
+Commande utilisée par le script sous Linux:
 ``` 
-    useradd <nom_utilisateur> -m"
+    useradd <nom_utilisateur> -m
   ```
 
+Commande utilisée par le script sous Windows:
+``` 
+   net user <utilisateur> /add
+  ```
 ### *1.2-Suppression d'un utilisateur*
 Le programme permet également de supprimer un utilisateur. Il vous sera demandé de rentrer le nom de l'utilisateur que vous souhaitez supprimer. La suppression comprends également le répertoire de l'utilisateur.
-Commande utilisée par le script :
+Commande utilisée par le script sous Linux:
 ``` 
    deluser --remove-home <nom_utilisateur>
   ```
 
+Commande utilisée par le script sous Windows:
+``` 
+   net user <utilisateur> /delete
+  ```
 ### *1.3-Création d'un groupe*
 Créer un nouveau groupe d'utilisateur. 
-Commande utilisée par le script :
+Commande utilisée par le script sous Linux:
 ``` 
    groupadd <nom_groupe>
   ```
 
+Commande utilisée par le script sous Windows:
+``` 
+   net localgroup <nom_du_groupe> /add
+  ```
 ### *1.4-Ajout d'un utilisateur dans un groupe*
 Permet d'ajouter un utilisateur dans un nouveau groupe.
-Commande utilisée par le script :
+Commande utilisée par le script sous Linux:
 ``` 
    usermod -aG <nom_groupe> <nom_utilisateur>
   ```
-
+Commande utilisée par le script sous Windows:
+``` 
+   net localgroup <nom_du_groupe> <nom_utilisateur> /add
+  ```
 ### *1.5-Afficher la dernière connexion d'un utilisateur*
 Affiche la dernière date de connexion de l'utilisateur ciblé.
-Commande utilisée par le script :
+Commande utilisée par le script sous Linux:
 ``` 
    lastlog -u <nom_utilisateur>
   ```
 
-## I - 2. Gestion du système
-
+Commande utilisée par le script sous Windows:
+``` 
+   (à compléter)
+  ```
+## I - 2. Récupérer des informations
 
 ### *2.1-Récupérer les informations d'utilisation du disque dur*
 L'option de récupération des informations du disque dur affiche l'état de la partition principale en affichant son nom, l'espace disponible en giga-octets et le pourcentage total restant.
-Commande utilisée par le script :
+Commande utilisée par le script sous Linux:
 ``` 
    df -h
   ```
 
+Commande utilisée par le script sous Windows:
+``` 
+   wmic logicaldisk get Name,Description,FreeSpace
+  ```
 ### *2.2-Récupérer le nom de la machine*
 Cette option affiche le nom de la machine du client ciblé.
-Commande utilisée par le script :
+Commande utilisée par le script sous Linux:
 ``` 
    uname -n
   ```
 
+Commande utilisée par le script sous Windows:
+``` 
+   hostname
+  ```
+  
 ### *2.3-Récupérer le nom et la version de l'OS*
 Cette commande affiche des informations sur le système d'exploitation installé en renvoyant le nom du système et sa version.
-Commande utilisée par le script :
+Commande utilisée par le script sous Linux:
 ``` 
    uname -sr
   ```
 
+Commande utilisée par le script sous Windows:
+``` 
+   wmic os get Caption,Version
+  ```
+## I - 3. Gestion du système
+
 ### *2.4-Redémarrer la machine*
 Redémarre la machine distante
-Commande utilisée par le script :
+Commande utilisée par le script sous Linux:
 ``` 
    reboot
   ```
 
+Commande utilisée par le script sous Windows:
+``` 
+   shutdown /r /t 0
+  ```
 ### *2.5-Arrêter la machine*
 Arrête le client ciblé
-Commande utilisée par le script :
+Commande utilisée par le script sous Linux:
 ``` 
    shutdown now
   ```
-# WINDOWS
-
-WORK IN PROGRESS
-
-
+  
+Commande utilisée par le script sous Windows:
+``` 
+   shutdown /s /t 0
+  ```
 
 
