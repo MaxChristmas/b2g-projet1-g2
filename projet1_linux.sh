@@ -40,7 +40,7 @@ else
 	done
 fi
 
-# Execute defined command on distant device
+# SSH connection
 remoteCommand() {
     local COMMAND=$1
     ssh -p $PORT $USER@$HOST "$COMMAND"
@@ -53,6 +53,7 @@ log() {
 	sudo echo $line >> /var/log/log_evt.log	
 }
 
+# write data.txt
 writeTxt() {
 	dir="/home/$(whoami)/Documents/info_"$USER"_$(date +%Y%d%m).txt"
 	echo $1 >> $dir
@@ -75,7 +76,7 @@ deleteUserAccount() {
 	log $USER "$menu1_opt2"
 }
 
-# Add group
+# Add a group
 addGroup() {
 	read -p "Entrer le nom du groupe à créer: " newgroup	
 	REMOTE_SHUTDOWN=$(remoteCommand "sudo groupadd $newgroup")
@@ -83,7 +84,7 @@ addGroup() {
 	log $USER "$menu1_opt3"
 }
  
-# Add user in group
+# Add a user in a group
 addUserInGroup() {
     read -p "Entrer le nom de l'utilisateur : " userg
     read -p "Entrer le nom du groupe : " group
@@ -92,7 +93,7 @@ addUserInGroup() {
     log $USER "$menu1_opt4"
 }
 
-# Get the user last connection date
+# Get the user last connection informations
 getUserLastConnection() {    
     REMOTE_DERNIERE_CO=$(remoteCommand "last $USER | head -n 1 | awk '{print \$1 \": depuis \" \$3 \" le \" \$4 \" \" \$5 \" \" \$6 \" \" \$7 \" \" \$8 \" \" \$9 \" \" \$10}'")
     echo -e "${YELLOW}Dernière connexion de${NC} ${RED}$REMOTE_DERNIERE_CO${NC}"
@@ -100,7 +101,7 @@ getUserLastConnection() {
     writeTxt "Dernière connexion de $REMOTE_DERNIERE_CO"
 }
 
-# Get the distant host name
+# Get the remote host name
 getHostName() {
 	REMOTE_NAME=$(remoteCommand "uname -n")
 	echo -e "${YELLOW}Nom de machine distante:${NC} ${RED}$REMOTE_NAME${NC}"
@@ -116,7 +117,7 @@ getHostInfo() {
 	writeTxt "Nom de l'OS et version de la machine distante: $REMOTE_UNAME"
 }
 
-# Retrieve distance device's disk state
+# Retrieve remote device's disk state
 getDiskUsage() {
 	DISKUSAGE="df -h | grep 'sda' | awk '{print \$1 \" Espace Disponible: \" \$4 \"-\" \$5}'"
 	REMOTE_DISK=$(remoteCommand "$DISKUSAGE")
@@ -125,14 +126,14 @@ getDiskUsage() {
 	writeTxt "Utilisation du disque: $REMOTE_DISK"
 }
 
-# Restart the distant device
+# Restart the remote device
 rebootRemoteDevice() {
 	REMOTE_REBOOT=$(remoteCommand "sudo reboot")
 	echo -e "${YELLOW}Redémarrage de la machine distante${NC}"
 	log $USER "$menu1_opt9"
 }
 
-# Shutdown the distant device
+# Shutdown the remote device
 shutdownRemoteDevice() {
 	REMOTE_SHUTDOWN=$(remoteCommand "sudo shutdown now")
 	echo -e "${YELLOW}Arrêt de la machine distante${NC}"

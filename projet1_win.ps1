@@ -3,6 +3,7 @@ $DEBUG = $true
 $DEFAULT_USER = "wilder"
 $DEFAULT_HOST = "172.16.10.20"
 
+# menu's choices listing
 $menu1_opt1 = "1. Creation d'un compte utilisateur"
 $menu1_opt2 = "2. Suppression d'un compte utilisateur"
 $menu1_opt3 = "3. Creation d'un groupe"
@@ -29,6 +30,7 @@ if ($DEBUG) {
     }
 }
 
+# SSH connection
 function RemoteCommand {
     param(
         [string]$Command
@@ -37,6 +39,7 @@ function RemoteCommand {
     Invoke-Expression -Command $sshCommand
 }
 
+# create a user
 function createUserAccount {
     Write-Host "Entrer le nom du nouvel utilisateur:"
     $new_username = Read-Host
@@ -47,6 +50,7 @@ function createUserAccount {
     RemoteCommand -Command "net user"
 }
 
+# delete a user
 function deleteUserAccount {
     Write-Host "Entrer le nom d'utilisateur à supprimer:"
     $del_username = Read-Host
@@ -54,12 +58,14 @@ function deleteUserAccount {
     RemoteCommand -Command "net user"
 }
 
+# add a group
 function addGroup {
     $newgroup = Read-Host "Entrer le nom du groupe à créer"
 	RemoteCommand -Command "net localgroup $newgroup /add"
 	RemoteCommand -Command "net localgroup"
 }
 
+# add a user in a group
 function addUserInGroup {
     $addingroup = Read-Host "Entrer le nom du groupe"
     $addinuser = Read-Host "Entrer le nom de l'utilisateur"
@@ -67,31 +73,38 @@ function addUserInGroup {
     RemoteCommand -Command "net localgroup $addingroup"
 }
 
+# retrieve user last connection informations
 function getUserLastConnection {
     RemoteCommand -Command "net user $DEFAULT_USER"
 }
 
+# retrieve remote device host name
 function getHostName {
     Write-Host -ForegroundColor Cyan "Le nom de la machine distante est: "    
     RemoteCommand -Command "hostname"
 }
 
+# retrieve remote device OS name and version
 function getHostInfo {
     RemoteCommand -Command  "wmic os get Caption,Version"
 }
 
+# retrieve disk usage informations
 function getDiskUsage {
     RemoteCommand -Command "wmic logicaldisk get Name,Description,FreeSpace"
 }
 
+# reboot remote device
 function rebootRemoteDevice {
     RemoteCommand -Command "shutdown /r /t 0"
 }
 
+# shutdown remote device
 function shutdownRemoteDevice {
     RemoteCommand -Command "shutdown /s /t 0"
 }
 
+# exit script
 function quit {
     Write-Host -ForegroundColor Blue "+++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     Write-Host -ForegroundColor Blue "    Bye!"
@@ -99,6 +112,7 @@ function quit {
     Write-Host -ForegroundColor Blue "+++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 }
 
+# menu displaying
 $continue = $true
 while ($continue) {
     Write-Host -ForegroundColor Blue "+++++++++++++++++++++++++++++++++++++++++++++++++++++++"
